@@ -1,0 +1,19 @@
+[project]
+name = "screenmind"
+version = "0.1.0"
+description = "智能截图答题助手 - AI-powered screenshot question answering tool"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pillow>=10.0.0",
+    "pynput>=1.7.6",
+    "tkinter-tooltip>=2.0.0",
+    "requests>=2.31.0",
+    "google-generativeai>=0.3.0",
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "pystray>=0.19.0",
+]
+
+[project.scripts]
+screenmind = "screenmind.main:main"
