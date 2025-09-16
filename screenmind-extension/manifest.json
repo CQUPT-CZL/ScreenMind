@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "ScreenMind - 智能截屏助手",
+  "version": "1.0.0",
+  "description": "AI驱动的智能截屏分析工具，支持全局快捷键截屏并自动分析",
+  "author": "CZL",
+  "homepage_url": "https://github.com/cuiziliang/ScreenMind",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications",
+    "commands"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "https://localhost:8000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ScreenMind - 智能截屏分析"
+  },
+  "commands": {
+    "capture-screen": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "截屏并分析"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["notification.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

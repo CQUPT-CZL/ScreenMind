@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScreenMind 设置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .toggle-info {
+            flex: 1;
+        }
+
+        .toggle-title {
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .toggle-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #667eea;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        .shortcut-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .shortcut-key {
+            padding: 2px 6px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-online {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .status-offline {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 ScreenMind 设置</h1>
+            <p>配置您的智能截屏分析助手</p>
+        </div>
+
+        <div class="content">
+            <div class="success-message" id="successMessage">
+                ✅ 设置已保存成功！
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ 保存设置时出现错误，请重试。
+            </div>
+
+            <!-- 服务器设置 -->
+            <div class="section">
+                <div class="section-title">
+                    🌐 服务器设置
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="serverUrl">服务器地址</label>
+                    <input type="url" id="serverUrl" class="form-input" 
+                           placeholder="http://localhost:8000" 
+                           value="http://localhost:8000">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">连接状态</label>
+                    <div class="status-indicator status-offline" id="serverStatus">
+                        🔴 检查中...
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能设置 -->
+            <div class="section">
+                <div class="section-title">
+                    ⚙️ 功能设置
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-title">自动分析截屏</div>
+                        <div class="toggle-desc">截屏后自动进行AI分析</div>
+                    </div>
+                    <div class="toggle-switch" id="autoAnalyzeToggle"></div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-title">显示通知</div>
+                        <div class="toggle-desc">分析完成后显示系统通知</div>
+                    </div>
+                    <div class="toggle-switch" id="notificationToggle"></div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <div class="toggle-title">保存截屏历史</div>
+                        <div class="toggle-desc">在本地保存截屏和分析记录</div>
+                    </div>
+                    <div class="toggle-switch active" id="saveHistoryToggle"></div>
+                </div>
+            </div>
+
+            <!-- 快捷键设置 -->
+            <div class="section">
+                <div class="section-title">
+                    ⌨️ 快捷键设置
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">全局截屏快捷键</label>
+                    <div class="shortcut-display">
+                        <span class="shortcut-key">⌘ Cmd</span>
+                        <span>+</span>
+                        <span class="shortcut-key">⇧ Shift</span>
+                        <span>+</span>
+                        <span class="shortcut-key">S</span>
+                    </div>
+                    <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">
+                        💡 在任何网页上都可以使用此快捷键进行截屏分析
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高级设置 -->
+            <div class="section">
+                <div class="section-title">
+                    🔧 高级设置
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="analysisTimeout">分析超时时间（秒）</label>
+                    <input type="number" id="analysisTimeout" class="form-input" 
+                           min="10" max="120" value="30">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="maxHistoryItems">最大历史记录数</label>
+                    <input type="number" id="maxHistoryItems" class="form-input" 
+                           min="10" max="1000" value="100">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-secondary" id="resetBtn">
+                    🔄 重置默认
+                </button>
+                <button class="btn btn-primary" id="saveBtn">
+                    💾 保存设置
+                </button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px;">
+                ScreenMind v1.0.0 | 作者: CZL | AI驱动的智能截屏助手
+            </div>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>
