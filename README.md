@@ -1,172 +1,208 @@
-# ScreenMind - AI-Powered Screenshot Question Solver
+# 🧠 ScreenMind
 
-An intelligent screenshot-based question answering tool that uses AI to automatically identify and solve questions from screen captures.
+智能截图答题助手 - AI驱动的Web版题目识别和解答系统
 
-## ✨ Features
+## ✨ 功能特色
 
-- 🚀 **Global Hotkey**: `Cmd+Shift+Q` (macOS) / `Ctrl+Shift+Q` (Windows/Linux)
-- 📷 **Smart Screenshot**: Drag-to-select area capture
-- 🤖 **Multi-AI Support**: Supports Qwen, Google Gemini, and OpenAI GPT models
-- 💡 **Multi-Question Types**: Multiple choice, fill-in-the-blank, true/false, etc.
-- 🎯 **Real-time Results**: Instant popup with answers and explanations
-- 🔧 **System Tray**: Background operation with tray management
-- ⚙️ **Easy Configuration**: Graphical settings interface
+- 🤖 **多AI模型支持**: 支持 Google Gemini、通义千问、OpenAI GPT 等主流AI模型
+- 📸 **图片智能分析**: 自动识别题目类型，提供详细解答和解析
+- 🌐 **完整Web应用**: 前后端一体化，无需安装客户端
+- 🎯 **高精度识别**: 支持选择题、填空题、判断题等多种题型
+- 📱 **响应式设计**: 支持拖拽上传，适配各种设备
+- ⚙️ **灵活配置**: 支持在线切换AI模型和配置API密钥
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### 1. Install Dependencies
+### 环境要求
+- Python 3.8+
+- 现代Web浏览器
 
-Make sure you have Python 3.9+ and uv installed:
-
+### 安装依赖
 ```bash
-# Install dependencies with uv
-uv sync
+cd screenmind-web
+pip install -r backend/requirements.txt
 ```
 
-### 2. Configure AI Model and API Key
-
-ScreenMind supports multiple AI models. Choose one and configure its API key:
-
-**Qwen (Recommended):**
-- Get API key: https://dashscope.console.aliyun.com/apiKey
-- Set environment variables:
+### 配置API密钥
 ```bash
-export AI_PROVIDER=qwen
-export AI_MODEL=qwen-vl-plus
-export QWEN_API_KEY="your_qwen_api_key_here"
+# 通义千问（推荐，国内访问稳定）
+export QWEN_API_KEY="your-qwen-api-key"
+
+# 或者使用其他AI服务
+export GEMINI_API_KEY="your-gemini-api-key"
+export OPENAI_API_KEY="your-openai-api-key"
 ```
 
-**Google Gemini:**
-- Get API key: https://makersuite.google.com/app/apikey
+### 启动服务
 ```bash
-export AI_PROVIDER=gemini
-export AI_MODEL=gemini-1.5-flash
-export GEMINI_API_KEY="your_gemini_api_key_here"
+python start.py
 ```
 
-**OpenAI GPT:**
-- Get API key: https://platform.openai.com/api-keys
+### 访问应用
+- **Web应用**: http://localhost:8000
+- **API文档**: http://localhost:8000/docs
+- **健康检查**: http://localhost:8000/api/v1/health
+
+## 📖 API接口
+
+### 图片分析
+```http
+POST /api/v1/analyze
+Content-Type: multipart/form-data
+
+参数:
+- image: 图片文件
+- model_provider: AI模型提供商 (可选)
+- model_name: 模型名称 (可选)
+
+响应:
+{
+  "success": true,
+  "data": {
+    "question_type": "选择题",
+    "question_content": "题目内容",
+    "answer": "正确答案",
+    "explanation": "详细解析",
+    "analysis_time": 2.3
+  }
+}
+```
+
+### 健康检查
+```http
+GET /api/v1/health
+
+响应:
+{
+  "status": "healthy",
+  "timestamp": "2024-01-01T12:00:00",
+  "service": "ScreenMind API",
+  "version": "1.0.0"
+}
+```
+
+### 获取可用模型
+```http
+GET /api/v1/analyze/models
+
+响应:
+{
+  "success": true,
+  "data": {
+    "gemini": {
+      "name": "Google Gemini",
+      "models": ["gemini-1.5-flash", "gemini-1.5-pro"]
+    },
+    "qwen": {
+      "name": "通义千问",
+      "models": ["qwen-vl-plus", "qwen-vl-max"]
+    }
+  }
+}
+```
+
+## 🔧 配置管理
+
+### 设置API密钥
+```http
+POST /api/v1/config/api-key
+Content-Type: application/json
+
+{
+  "provider": "qwen",
+  "api_key": "your-api-key"
+}
+```
+
+### 切换AI模型
+```http
+POST /api/v1/config/model
+Content-Type: application/json
+
+{
+  "provider": "qwen",
+  "model": "qwen-vl-plus"
+}
+```
+
+### 获取当前设置
+```http
+GET /api/v1/config/settings
+```
+
+## 🌐 部署方案
+
+### Docker部署
 ```bash
-export AI_PROVIDER=openai
-export AI_MODEL=gpt-4o
-export OPENAI_API_KEY="your_openai_api_key_here"
+# 构建镜像
+docker build -t screenmind-api .
+
+# 运行容器
+docker run -p 8000:8000 -e QWEN_API_KEY=your-key screenmind-api
 ```
 
-**Alternative - GUI Settings:**
-1. Launch the application
-2. Right-click tray icon → Settings
-3. Select AI model and enter API key
-
-### 3. Run Application
-
+### 云服务器部署
 ```bash
-# Run with uv
-uv run python main.py
-
-# Or run directly
-python main.py
+# 使用 systemd 管理服务
+sudo cp screenmind.service /etc/systemd/system/
+sudo systemctl enable screenmind
+sudo systemctl start screenmind
 ```
 
-## 📖 Usage
+### Nginx反向代理
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
 
-1. **Launch App**: Application runs in background and hides to system tray
-2. **Take Screenshot**: Press `Cmd+Shift+Q` (macOS) or `Ctrl+Shift+Q` (Windows/Linux)
-3. **Select Area**: Drag to select the question area, press Enter to confirm
-4. **View Results**: Wait for AI analysis, results appear in popup window
-5. **Copy Answer**: Click "Copy Answer" to copy result to clipboard
-
-## 📁 Project Structure
-
-```
-ScreenMind/
-├── screenmind/
-│   ├── __init__.py
-│   ├── main.py              # Main application
-│   ├── config.py           # Configuration management
-│   ├── modules/            # Core modules
-│   │   ├── screenshot.py   # Screenshot functionality
-│   │   ├── hotkey.py      # Global hotkey listener
-│   │   └── ai_service.py  # AI service integration
-│   └── gui/               # GUI components
-│       ├── main_window.py # Main windows
-│       └── system_tray.py # System tray
-├── main.py                # Entry point
-├── pyproject.toml        # Project configuration
-├── .env.example         # Environment configuration example
-└── README.md
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
 ```
 
-## 🔧 System Requirements
+## 📁 项目结构
 
-- Python 3.9+
-- macOS 10.15+ / Windows 10+ / Linux
-- Internet connection (for AI service)
+```
+screenmind-web/
+├── backend/                 # 后端API
+│   ├── app/
+│   │   ├── main.py         # FastAPI应用 + Web界面
+│   │   ├── api/            # API路由模块
+│   │   │   ├── analyze.py  # 图片分析接口
+│   │   │   ├── config.py   # 配置管理接口
+│   │   │   └── health.py   # 健康检查接口
+│   │   └── core/           # 核心模块
+│   │       └── ai_service.py # AI服务集成
+│   ├── requirements.txt    # Python依赖
+│   └── static/            # 静态文件目录
+├── start.py               # 启动脚本
+└── README.md              # 说明文档
+```
 
-## 📦 Dependencies
+## 💡 使用说明
 
-- `pillow`: Image processing
-- `pynput`: Global hotkey monitoring
-- `google-generativeai`: Google Gemini AI service
-- `openai`: OpenAI API client (also used for Qwen)
-- `pystray`: System tray integration
-- `tkinter`: GUI framework (built-in with Python)
+### 基础使用
+1. 启动服务后，打开浏览器访问 http://localhost:8000
+2. 点击或拖拽图片到上传区域
+3. 点击"开始分析"按钮，等待AI分析结果
+4. 查看题目类型、内容、答案和详细解析
 
-## ⚠️ Important Notes
+### 技术栈
+- **后端**: FastAPI + Python
+- **AI服务**: Google Gemini、通义千问、OpenAI
+- **图片处理**: Pillow
+- **前端**: 原生HTML/CSS/JavaScript
+- **部署**: Docker、云服务器
 
-- First run may require screen recording permissions
-- API calls require internet connection
-- Recommend testing API key validity before use
+### 开发模式
+```bash
+# 使用启动脚本（推荐）
+python start.py
 
-## 🔧 Troubleshooting
-
-### Hotkey Not Responding
-- Check accessibility permissions granted (macOS)
-- Try restarting the application
-- Ensure no other apps use the same hotkey
-
-### AI Analysis Failed
-- Verify API key is correct
-- Check internet connection
-- Confirm API quota not exceeded
-
-### Screenshot Issues
-- Check screen recording permissions (macOS)
-- Ensure no conflicting applications
-
-## 🎯 How It Works
-
-1. **Hotkey Detection**: Global listener monitors for the configured key combination
-2. **Screenshot Capture**: Displays overlay for area selection and captures the chosen region
-3. **AI Processing**: Sends image to selected AI model (Qwen/Gemini/OpenAI) with optimized prompts
-4. **Result Parsing**: Extracts question type, content, answer, and explanation from AI response
-5. **Display Results**: Shows formatted results in popup window with copy functionality
-
-## 🤖 Supported AI Models
-
-| Provider | Models | API Key Source |
-|----------|--------|----------------|
-| **Qwen (通义千问)** | qwen-vl-plus, qwen-vl-max | [DashScope Console](https://dashscope.console.aliyun.com/apiKey) |
-| **Google Gemini** | gemini-1.5-flash, gemini-1.5-pro | [Google AI Studio](https://makersuite.google.com/app/apikey) |
-| **OpenAI GPT** | gpt-4o, gpt-4o-mini | [OpenAI Platform](https://platform.openai.com/api-keys) |
-
-## 🛡️ Privacy & Security
-
-- Screenshots are processed locally and sent only to selected AI service
-- No data is stored on external servers beyond AI provider processing
-- API keys are stored locally
-- Application runs entirely on your machine
-- You can choose which AI provider to trust with your data
-
-## 🚀 Future Enhancements
-
-- [x] Support for multiple AI models (Qwen, Gemini, OpenAI)
-- [ ] Support for more AI models (Claude, local models)
-- [ ] OCR text extraction capabilities
-- [ ] Batch screenshot processing
-- [ ] History and bookmarking features
-- [ ] Custom prompt templates
-- [ ] Mobile app companion
-
-## 📄 License
-
-This project is for educational and research purposes only. Please comply with relevant laws and regulations.
+# 或手动启动开发服务器
+cd backend
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
