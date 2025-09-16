@@ -80,7 +80,14 @@ async def analyze_image(
         }
 
         analysis_time = round(time.time() - start_time, 2)
+        
+        # 记录详细的分析结果到日志
         api_logger.info(f"图片分析完成，耗时: {analysis_time}秒")
+        api_logger.info(f"分析结果详情:")
+        api_logger.info(f"  - 题目类型: {analysis_data['question_type']}")
+        api_logger.info(f"  - 题目内容: {analysis_data['question_content'][:100]}{'...' if len(analysis_data['question_content']) > 100 else ''}")
+        api_logger.info(f"  - 答案: {analysis_data['answer']}")
+        api_logger.info(f"  - 解析: {analysis_data['explanation'][:200]}{'...' if len(analysis_data['explanation']) > 200 else ''}")
 
         return {
             "success": True,
