@@ -1,0 +1,357 @@
+/* app.wxss - 全局样式 */
+
+/* 全局变量 */
+page {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  
+  --border-radius: 8rpx;
+  --box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  
+  background-color: var(--light-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+/* 通用容器 */
+.container {
+  padding: 32rpx;
+  min-height: 100vh;
+}
+
+/* 卡片样式 */
+.card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 32rpx;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 32rpx;
+  border-bottom: 1rpx solid #e9ecef;
+  font-weight: 600;
+  font-size: 32rpx;
+  color: var(--dark-color);
+}
+
+.card-body {
+  padding: 32rpx;
+}
+
+.card-footer {
+  padding: 24rpx 32rpx;
+  background: var(--light-color);
+  border-top: 1rpx solid #e9ecef;
+  font-size: 24rpx;
+  color: var(--secondary-color);
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx 48rpx;
+  border-radius: var(--border-radius);
+  font-size: 28rpx;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160rpx;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+  transform: translateY(-2rpx);
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.btn-success {
+  background: var(--success-color);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning-color);
+  color: var(--dark-color);
+}
+
+.btn-danger {
+  background: var(--danger-color);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2rpx solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+}
+
+.btn-small {
+  padding: 16rpx 32rpx;
+  font-size: 24rpx;
+}
+
+.btn-large {
+  padding: 32rpx 64rpx;
+  font-size: 32rpx;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 文本样式 */
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--secondary-color); }
+.text-success { color: var(--success-color); }
+.text-warning { color: var(--warning-color); }
+.text-danger { color: var(--danger-color); }
+.text-muted { color: #6c757d; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-bold { font-weight: 600; }
+.text-normal { font-weight: 400; }
+
+/* 间距工具类 */
+.m-0 { margin: 0; }
+.m-1 { margin: 16rpx; }
+.m-2 { margin: 32rpx; }
+.m-3 { margin: 48rpx; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 16rpx; }
+.mt-2 { margin-top: 32rpx; }
+.mt-3 { margin-top: 48rpx; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 16rpx; }
+.mb-2 { margin-bottom: 32rpx; }
+.mb-3 { margin-bottom: 48rpx; }
+
+.p-0 { padding: 0; }
+.p-1 { padding: 16rpx; }
+.p-2 { padding: 32rpx; }
+.p-3 { padding: 48rpx; }
+
+/* 布局工具类 */
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+/* 状态指示器 */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.status-online {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success-color);
+}
+
+.status-offline {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+}
+
+.status-pending {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning-color);
+}
+
+/* 加载动画 */
+.loading {
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 80rpx 32rpx;
+  color: var(--secondary-color);
+}
+
+.empty-state-icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: 28rpx;
+  margin-bottom: 16rpx;
+}
+
+.empty-state-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 列表样式 */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  background: white;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item-content {
+  flex: 1;
+  margin-left: 24rpx;
+}
+
+.list-item-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--dark-color);
+  margin-bottom: 8rpx;
+}
+
+.list-item-desc {
+  font-size: 24rpx;
+  color: var(--secondary-color);
+}
+
+.list-item-arrow {
+  color: #c0c0c0;
+  font-size: 24rpx;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 32rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--dark-color);
+  margin-bottom: 16rpx;
+}
+
+.form-input {
+  width: 100%;
+  padding: 24rpx 32rpx;
+  border: 2rpx solid #e9ecef;
+  border-radius: var(--border-radius);
+  font-size: 28rpx;
+  background: white;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* 徽章 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx 16rpx;
+  border-radius: 32rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  min-width: 32rpx;
+  height: 32rpx;
+}
+
+.badge-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.badge-success {
+  background: var(--success-color);
+  color: white;
+}
+
+.badge-warning {
+  background: var(--warning-color);
+  color: var(--dark-color);
+}
+
+.badge-danger {
+  background: var(--danger-color);
+  color: white;
+}

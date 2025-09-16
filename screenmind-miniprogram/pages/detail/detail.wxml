@@ -1,0 +1,175 @@
+<!--pages/detail/detail.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 详情内容 -->
+  <view class="detail-content" wx:else>
+    <!-- 头部信息 -->
+    <view class="header-section">
+      <view class="header-card card">
+        <view class="card-body">
+          <view class="header-info">
+            <view class="info-row">
+              <view class="info-label">类型:</view>
+              <view class="info-value">
+                <text class="badge badge-{{detail.type === 'math' ? 'primary' : detail.type === 'text' ? 'success' : 'warning'}}">
+                  {{detail.typeText}}
+                </text>
+              </view>
+            </view>
+            <view class="info-row">
+              <view class="info-label">时间:</view>
+              <view class="info-value">{{detail.timeText}}</view>
+            </view>
+            <view class="info-row" wx:if="{{detail.confidence}}">
+              <view class="info-label">置信度:</view>
+              <view class="info-value">
+                <text class="confidence-value {{detail.confidence >= 80 ? 'high' : detail.confidence >= 60 ? 'medium' : 'low'}}">
+                  {{detail.confidence}}%
+                </text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 原始图片 -->
+    <view class="image-section" wx:if="{{detail.imageUrl}}">
+      <view class="image-card card">
+        <view class="card-header">
+          <text>📷 原始截图</text>
+        </view>
+        <view class="card-body">
+          <view class="image-container">
+            <image 
+              class="detail-image" 
+              src="{{detail.imageUrl}}" 
+              mode="widthFix"
+              bindtap="handlePreviewImage"
+              show-menu-by-longpress="{{true}}"
+            />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 题目内容 -->
+    <view class="question-section">
+      <view class="question-card card">
+        <view class="card-header">
+          <view class="d-flex align-center justify-between">
+            <text>🤔 识别的题目</text>
+            <button 
+              class="btn btn-small btn-outline"
+              bindtap="handleCopyQuestion"
+            >
+              复制
+            </button>
+          </view>
+        </view>
+        <view class="card-body">
+          <view class="question-content">
+            <text class="question-text" selectable="{{true}}">{{detail.question}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 答案内容 -->
+    <view class="answer-section">
+      <view class="answer-card card">
+        <view class="card-header">
+          <view class="d-flex align-center justify-between">
+            <text>✅ 分析答案</text>
+            <button 
+              class="btn btn-small btn-outline"
+              bindtap="handleCopyAnswer"
+            >
+              复制
+            </button>
+          </view>
+        </view>
+        <view class="card-body">
+          <view class="answer-content">
+            <text class="answer-text" selectable="{{true}}">{{detail.answer}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 解题步骤 -->
+    <view class="steps-section" wx:if="{{detail.steps && detail.steps.length > 0}}">
+      <view class="steps-card card">
+        <view class="card-header">
+          <text>📝 解题步骤</text>
+        </view>
+        <view class="card-body">
+          <view class="steps-content">
+            <view 
+              class="step-item"
+              wx:for="{{detail.steps}}"
+              wx:key="index"
+            >
+              <view class="step-number">{{index + 1}}</view>
+              <view class="step-text">{{item}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 相关知识点 -->
+    <view class="knowledge-section" wx:if="{{detail.knowledge && detail.knowledge.length > 0}}">
+      <view class="knowledge-card card">
+        <view class="card-header">
+          <text>💡 相关知识点</text>
+        </view>
+        <view class="card-body">
+          <view class="knowledge-content">
+            <view 
+              class="knowledge-tag"
+              wx:for="{{detail.knowledge}}"
+              wx:key="index"
+            >
+              {{item}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions-section">
+      <view class="actions-card card">
+        <view class="card-body">
+          <view class="action-buttons">
+            <button 
+              class="btn btn-primary btn-block mb-2"
+              bindtap="handleShareAll"
+            >
+              📤 分享完整内容
+            </button>
+            <button 
+              class="btn btn-secondary btn-block mb-2"
+              bindtap="handleSaveImage"
+              wx:if="{{detail.imageUrl}}"
+            >
+              💾 保存图片
+            </button>
+            <button 
+              class="btn btn-outline btn-block"
+              bindtap="handleReAnalyze"
+            >
+              🔄 重新分析
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

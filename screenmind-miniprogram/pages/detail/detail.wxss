@@ -1,0 +1,231 @@
+/* pages/detail/detail.wxss */
+
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+/* 详情内容 */
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 头部信息 */
+.header-section {
+  margin-bottom: 10rpx;
+}
+
+.header-info {
+  padding: 20rpx 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.info-value {
+  color: #333;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.confidence-value.high {
+  color: #52c41a;
+}
+
+.confidence-value.medium {
+  color: #faad14;
+}
+
+.confidence-value.low {
+  color: #ff4d4f;
+}
+
+/* 图片区域 */
+.image-section {
+  margin-bottom: 10rpx;
+}
+
+.image-container {
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.detail-image {
+  width: 100%;
+  max-width: 600rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 题目区域 */
+.question-section {
+  margin-bottom: 10rpx;
+}
+
+.question-content {
+  padding: 20rpx 0;
+}
+
+.question-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+/* 答案区域 */
+.answer-section {
+  margin-bottom: 10rpx;
+}
+
+.answer-content {
+  padding: 20rpx 0;
+}
+
+.answer-text {
+  font-size: 30rpx;
+  color: #52c41a;
+  line-height: 1.6;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+/* 解题步骤 */
+.steps-section {
+  margin-bottom: 10rpx;
+}
+
+.steps-content {
+  padding: 20rpx 0;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.step-item:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  width: 50rpx;
+  height: 50rpx;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.step-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  padding-top: 8rpx;
+}
+
+/* 知识点区域 */
+.knowledge-section {
+  margin-bottom: 10rpx;
+}
+
+.knowledge-content {
+  padding: 20rpx 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.knowledge-tag {
+  padding: 12rpx 20rpx;
+  background-color: #f0f8ff;
+  color: var(--primary-color);
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  border: 1rpx solid #d6e4ff;
+}
+
+/* 操作按钮区域 */
+.actions-section {
+  margin-bottom: 30rpx;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+/* 徽章样式 */
+.badge-primary {
+  background-color: #1890ff;
+}
+
+.badge-success {
+  background-color: #52c41a;
+}
+
+.badge-warning {
+  background-color: #faad14;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .container {
+    padding: 15rpx;
+  }
+  
+  .question-text,
+  .answer-text {
+    font-size: 28rpx;
+  }
+  
+  .step-text {
+    font-size: 26rpx;
+  }
+  
+  .knowledge-tag {
+    font-size: 24rpx;
+    padding: 10rpx 16rpx;
+  }
+}

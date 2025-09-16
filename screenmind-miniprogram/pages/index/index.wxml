@@ -1,0 +1,147 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 头部欢迎区域 -->
+  <view class="welcome-section">
+    <view class="welcome-card card">
+      <view class="card-body text-center">
+        <view class="welcome-icon">🤖</view>
+        <view class="welcome-title">ScreenMind助手</view>
+        <view class="welcome-desc">智能截屏分析结果通知</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 绑定状态区域 -->
+  <view class="status-section">
+    <view class="status-card card">
+      <view class="card-header">
+        <view class="d-flex align-center justify-between">
+          <text>📱 设备状态</text>
+          <view class="status-indicator {{isConnected ? 'status-online' : 'status-offline'}}">
+            {{isConnected ? '✅ 已连接' : '❌ 未连接'}}
+          </view>
+        </view>
+      </view>
+      <view class="card-body">
+        <view class="status-info">
+          <view class="info-item">
+            <text class="info-label">设备ID:</text>
+            <text class="info-value">{{deviceId}}</text>
+          </view>
+          <view class="info-item" wx:if="{{userInfo}}">
+            <text class="info-label">绑定用户:</text>
+            <text class="info-value">{{userInfo.nickName}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">服务器:</text>
+            <text class="info-value">{{serverUrl}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能按钮区域 -->
+  <view class="action-section">
+    <view class="action-card card">
+      <view class="card-body">
+        <view class="action-buttons">
+          <!-- 绑定/解绑按钮 -->
+          <button 
+            class="btn {{isLoggedIn ? 'btn-danger' : 'btn-primary'}} btn-block mb-2"
+            bindtap="{{isLoggedIn ? 'handleUnbind' : 'handleBind'}}"
+            disabled="{{loading}}"
+          >
+            <view class="loading" wx:if="{{loading}}"></view>
+            <text wx:else>{{isLoggedIn ? '🔓 解除绑定' : '🔗 绑定设备'}}</text>
+          </button>
+
+          <!-- 测试通知按钮 -->
+          <button 
+            class="btn btn-secondary btn-block mb-2"
+            bindtap="handleTestNotification"
+            disabled="{{!isLoggedIn || loading}}"
+          >
+            <view class="loading" wx:if="{{testLoading}}"></view>
+            <text wx:else>🔔 测试通知</text>
+          </button>
+
+          <!-- 查看历史按钮 -->
+          <button 
+            class="btn btn-outline btn-block"
+            bindtap="handleViewHistory"
+            disabled="{{!isLoggedIn}}"
+          >
+            📋 查看历史记录
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最新通知区域 -->
+  <view class="notification-section" wx:if="{{latestNotification}}">
+    <view class="notification-card card">
+      <view class="card-header">
+        <view class="d-flex align-center justify-between">
+          <text>🔔 最新通知</text>
+          <text class="text-muted">{{latestNotification.time}}</text>
+        </view>
+      </view>
+      <view class="card-body">
+        <view class="notification-content">
+          <view class="notification-type">
+            <text class="badge badge-primary">{{latestNotification.type}}</text>
+          </view>
+          <view class="notification-question mt-1">
+            <text class="text-bold">题目:</text>
+            <text class="notification-text">{{latestNotification.question}}</text>
+          </view>
+          <view class="notification-answer mt-1">
+            <text class="text-bold text-success">答案:</text>
+            <text class="notification-text">{{latestNotification.answer}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="card-footer">
+        <button class="btn btn-small btn-primary" bindtap="handleViewDetail" data-id="{{latestNotification.id}}">
+          查看详情
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用说明区域 -->
+  <view class="help-section">
+    <view class="help-card card">
+      <view class="card-header">
+        <text>💡 使用说明</text>
+      </view>
+      <view class="card-body">
+        <view class="help-steps">
+          <view class="help-step">
+            <view class="step-number">1</view>
+            <view class="step-content">
+              <view class="step-title">绑定设备</view>
+              <view class="step-desc">点击"绑定设备"按钮，授权登录</view>
+            </view>
+          </view>
+          <view class="help-step">
+            <view class="step-number">2</view>
+            <view class="step-content">
+              <view class="step-title">使用浏览器扩展</view>
+              <view class="step-desc">在电脑上使用ScreenMind扩展截屏分析</view>
+            </view>
+          </view>
+          <view class="help-step">
+            <view class="step-number">3</view>
+            <view class="step-content">
+              <view class="step-title">接收通知</view>
+              <view class="step-desc">分析完成后会自动推送到小程序</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

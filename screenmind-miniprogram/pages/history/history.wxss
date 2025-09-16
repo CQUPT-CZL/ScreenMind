@@ -1,0 +1,214 @@
+/* pages/history/history.wxss */
+
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 统计区域 */
+.stats-section {
+  margin-bottom: 20rpx;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 筛选器区域 */
+.filter-section {
+  margin-bottom: 20rpx;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.filter-tab {
+  padding: 16rpx 32rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: #666;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+  text-align: center;
+  flex: 1;
+  margin: 0 8rpx;
+}
+
+.filter-tab.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* 历史记录区域 */
+.history-section {
+  margin-bottom: 30rpx;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+/* 历史记录列表 */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-item {
+  transition: transform 0.2s ease;
+}
+
+.history-item:active {
+  transform: scale(0.98);
+}
+
+.item-type {
+  margin-right: 20rpx;
+}
+
+.item-time {
+  font-size: 24rpx;
+}
+
+.item-question,
+.item-answer {
+  margin-bottom: 15rpx;
+}
+
+.question-label,
+.answer-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.question-content,
+.answer-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.answer-content {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.item-confidence {
+  display: flex;
+  align-items: center;
+}
+
+.confidence-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 8rpx;
+}
+
+.confidence-value {
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.confidence-value.high {
+  color: #52c41a;
+}
+
+.confidence-value.medium {
+  color: #faad14;
+}
+
+.confidence-value.low {
+  color: #ff4d4f;
+}
+
+.item-actions {
+  display: flex;
+  gap: 10rpx;
+}
+
+/* 加载更多和没有更多 */
+.load-more {
+  margin-top: 30rpx;
+}
+
+.no-more {
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+/* 徽章特殊样式 */
+.badge-primary {
+  background-color: #1890ff;
+}
+
+.badge-success {
+  background-color: #52c41a;
+}
+
+.badge-warning {
+  background-color: #faad14;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .container {
+    padding: 15rpx;
+  }
+  
+  .stat-number {
+    font-size: 40rpx;
+  }
+  
+  .filter-tab {
+    padding: 12rpx 24rpx;
+    font-size: 26rpx;
+    margin: 0 4rpx;
+  }
+  
+  .question-content,
+  .answer-content {
+    font-size: 26rpx;
+  }
+}

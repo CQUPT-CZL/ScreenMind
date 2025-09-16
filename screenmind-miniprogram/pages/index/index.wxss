@@ -1,0 +1,195 @@
+/* pages/index/index.wxss */
+
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 欢迎区域 */
+.welcome-section {
+  margin-bottom: 30rpx;
+}
+
+.welcome-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.welcome-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.welcome-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.welcome-desc {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 状态区域 */
+.status-section {
+  margin-bottom: 30rpx;
+}
+
+.status-info {
+  margin-top: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.info-value {
+  color: #333;
+  font-size: 28rpx;
+  font-weight: 500;
+  max-width: 400rpx;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* 功能按钮区域 */
+.action-section {
+  margin-bottom: 30rpx;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 通知区域 */
+.notification-section {
+  margin-bottom: 30rpx;
+}
+
+.notification-content {
+  padding: 20rpx 0;
+}
+
+.notification-type {
+  margin-bottom: 15rpx;
+}
+
+.notification-question,
+.notification-answer {
+  margin-bottom: 15rpx;
+  line-height: 1.6;
+}
+
+.notification-text {
+  margin-left: 10rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+
+/* 使用说明区域 */
+.help-section {
+  margin-bottom: 30rpx;
+}
+
+.help-steps {
+  padding: 20rpx 0;
+}
+
+.help-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
+}
+
+.help-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  width: 60rpx;
+  height: 60rpx;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 5rpx;
+}
+
+.step-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.step-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 状态指示器特殊样式 */
+.status-indicator {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.status-online {
+  background-color: #e8f5e8;
+  color: #52c41a;
+}
+
+.status-offline {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .container {
+    padding: 15rpx;
+  }
+  
+  .welcome-icon {
+    font-size: 60rpx;
+  }
+  
+  .welcome-title {
+    font-size: 32rpx;
+  }
+  
+  .info-value {
+    max-width: 300rpx;
+    font-size: 26rpx;
+  }
+}
