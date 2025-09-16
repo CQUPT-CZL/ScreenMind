@@ -7,6 +7,7 @@ import base64
 import io
 import time
 from PIL import Image
+from ..core.logger import api_logger
 
 router = APIRouter()
 
@@ -31,14 +32,17 @@ async def analyze_image(
         分析结果JSON
     """
     start_time = time.time()
+    api_logger.info(f"开始分析图片: {image.filename}, 大小: {image.size if hasattr(image, 'size') else 'unknown'} bytes")
 
     try:
         # 验证文件类型
         if not image.content_type.startswith('image/'):
+            api_logger.warning(f"无效文件类型: {image.content_type}")
             raise HTTPException(status_code=400, detail="文件必须是图片格式")
 
         # 读取图片数据
         image_data = await image.read()
+        api_logger.info(f"成功读取图片数据: {len(image_data)} bytes")
 
         # 验证图片大小 (限制10MB)
         if len(image_data) > 10 * 1024 * 1024:
@@ -56,12 +60,15 @@ async def analyze_image(
 
         # 使用真实的AI分析服务
         if not question_analyzer:
+            api_logger.error("AI分析服务未初始化")
             raise HTTPException(status_code=500, detail="AI分析服务未初始化")
 
+        api_logger.info("开始调用AI分析服务...")
         analysis_result = question_analyzer.analyze_question_image(image_base64)
         if not analysis_result['success']:
             # 直接返回错误，不使用模拟数据
             error_msg = analysis_result.get('error', '分析失败')
+            api_logger.error(f"AI分析失败: {error_msg}")
             raise HTTPException(status_code=500, detail=error_msg)
 
         # 成功获得AI分析结果
@@ -73,6 +80,7 @@ async def analyze_image(
         }
 
         analysis_time = round(time.time() - start_time, 2)
+        api_logger.info(f"图片分析完成，耗时: {analysis_time}秒")
 
         return {
             "success": True,
@@ -88,12 +96,14 @@ async def analyze_image(
     except HTTPException:
         raise
     except Exception as e:
+        api_logger.error(f"图片分析出现异常: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"分析失败: {str(e)}")
 
 
 @router.get("/models")
 async def get_available_models():
     """获取可用的AI模型列表"""
+    api_logger.info("获取可用AI模型列表")
     return {
         "success": True,
         "data": {

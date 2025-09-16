@@ -47,13 +47,14 @@ def start_server():
     # 切换到backend目录
     backend_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "backend")
 
-    # 启动命令
+    # 启动命令 - 禁用uvicorn访问日志输出到控制台
     cmd = [
         sys.executable, "-m", "uvicorn",
         "app.main:app",
         "--host", "0.0.0.0",
         "--port", "8000",
-        "--reload"
+        "--reload",
+        "--log-level", "warning"  # 减少控制台日志
     ]
 
     try:

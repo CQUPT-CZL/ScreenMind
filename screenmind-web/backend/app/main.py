@@ -15,9 +15,15 @@ from dotenv import load_dotenv
 # 导入API路由
 from .api import analyze, config, health
 from .core.ai_service import AIService, QuestionAnalyzer
+# 导入日志配置
+from .core.logger import app_logger, disable_uvicorn_console_logging
 
 # 加载环境变量
 load_dotenv()
+
+# 配置日志
+disable_uvicorn_console_logging()
+app_logger.info("ScreenMind应用启动中...")
 
 # 创建FastAPI应用
 app = FastAPI(
@@ -42,16 +48,20 @@ except RuntimeError:
     pass  # static目录不存在时忽略
 
 # 全局AI服务实例
+app_logger.info("初始化AI服务...")
 ai_service = AIService()
 question_analyzer = QuestionAnalyzer(ai_service)
 
 # 将AI服务实例传递给analyze模块
 analyze.question_analyzer = question_analyzer
+app_logger.info("AI服务初始化完成")
 
 # 注册路由
+app_logger.info("注册API路由...")
 app.include_router(health.router, prefix="/api/v1", tags=["health"])
 app.include_router(analyze.router, prefix="/api/v1", tags=["analyze"])
 app.include_router(config.router, prefix="/api/v1", tags=["config"])
+app_logger.info("路由注册完成")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
@@ -174,4 +184,5 @@ async def read_root():
     """
 
 if __name__ == "__main__":
+    app_logger.info("启动FastAPI服务器...")
     uvicorn.run(app, host="0.0.0.0", port=8000)

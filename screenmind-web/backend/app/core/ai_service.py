@@ -11,6 +11,7 @@ from typing import Optional, Dict, Any
 import base64
 import io
 from PIL import Image
+from .logger import ai_logger
 
 class WebConfig:
     """Web版本的简化配置类"""
